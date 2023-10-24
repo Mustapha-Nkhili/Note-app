@@ -1,0 +1,159 @@
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  padding: 2px;
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(217, 217, 227, .8);
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(217, 217, 227, 1);
+}
+
+.container {
+  display: flex;
+  /* overflow: hidden; */
+}
+
+.notes-sideBar {
+  height: 100vh;
+  width: 250px;
+  background-color: var(--sideBar-note-bg);
+}
+
+.notes-sideBar header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 10px;
+}
+
+.notes-sideBar header span {
+  font-size: 2rem;
+  font-weight: 700;
+  color: black;
+  text-transform: capitalize;
+}
+
+.notes-sideBar header button {
+  padding: 10px 15px;
+  border-radius: 3px;
+  background-color: var(--add-note-btn-bg);
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: all 350ms ease-in-out;
+}
+
+.notes-sideBar header button:active {
+  transform: scale(0.6);
+}
+
+.notes {
+  height: calc(100% - 89px);
+  overflow-y: auto
+}
+
+.note {
+  padding: 10px;
+  height: 60px;
+  /* background-color: var(--active-note-bg); */
+  line-height: 1.4;
+  border-top: 1px solid var(--active-note-bg);
+  cursor: pointer;
+}
+
+.note:last-child {
+  border-bottom: 1px solid var(--active-note-bg);
+}
+
+.note.active {
+  background-color: var(--active-note-bg);
+}
+
+.note .note-title {
+  display: block;
+  font-size: .9rem;
+  color: var(--note-title-clr);
+  font-weight: 700;
+  text-wrap: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.note .note-summary-title {
+  display: block;
+  width: 70%;
+  font-size: .7rem;
+  font-weight: 500;
+  color: var(--note-summary-clr);
+  text-wrap: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.editor {
+  width: 100%;
+}
+.editor .editor-header {
+  padding: 20px;
+}
+
+.editor .note-title {
+  font-family: Source Sans Pro, -apple-system, system-ui, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 40px;
+  background-color: transparent;
+  color: black;
+  outline: none;
+  border: none;
+  padding-bottom: 4px;
+  width: 100%;
+}
+
+.editor hr {
+  border: none;
+  height: 2px;
+  background-color: #F7F7F8;
+}
+
+.editor .editor-body {
+  display: block;
+  font-size: 0.9rem;
+  padding: 40px;
+  border: none;
+  outline: none;
+  width: 100%;
+  resize: none;
+  height: calc(100% - 92px);
+  background-color: transparent;
+  color: #80838a;
+}
+
+@media screen and (max-width: 480px) {
+  .notes-sideBar {
+    flex-basis: 100%;
+  }
+
+  .notes-sideBar.clicked {
+    display: none;
+  }
+
+  .notes-sideBar.clicked+.editor {
+    display: block;
+    width: 100%;
+    height: 100vh;
+  }
+
+  .editor {
+    display: none;
+  }
+}

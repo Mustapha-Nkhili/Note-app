@@ -1,0 +1,27 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  --primary-bg-clr: #fff;
+  /* --primary-clr: */
+  --active-note-bg: #BEC2CE;
+  --sideBar-note-bg: #E5F6EC;
+  --add-note-btn-bg: #3F7AFE;
+  --note-title-clr: hsl(228, 4%, 20%);
+  --note-summary-clr: #4b4c50;
+
+  /* color: rgba(255, 255, 255, 0.87); */
+  background-color: var(--primary-bg-clr);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}

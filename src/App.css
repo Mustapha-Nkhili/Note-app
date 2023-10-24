@@ -27,6 +27,11 @@
   width: 250px;
   background-color: var(--sideBar-note-bg);
 }
+@media screen and (max-width: 600px)  {
+  .notes-sideBar {
+    width: 180px;
+  }
+}
 
 .notes-sideBar header {
   display: flex;
@@ -99,9 +104,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 .editor {
   width: 100%;
 }
+
 .editor .editor-header {
   padding: 20px;
 }
@@ -127,13 +134,14 @@
 
 .editor .editor-body {
   display: block;
+  position: relative;
   font-size: 0.9rem;
-  padding: 40px;
+  padding: 40px 10px 20px 40px;
   border: none;
   outline: none;
   width: 100%;
   resize: none;
-  height: calc(100% - 92px);
+  height: calc(100% - 120px);
   background-color: transparent;
   color: #80838a;
 }
@@ -156,4 +164,24 @@
   .editor {
     display: none;
   }
+}
+
+.back-note-list-btn {
+  position: absolute;
+  text-align: center;
+  line-height: 45px;
+  width: 45px;
+  font-size: 19px;
+  color: #fff;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-color: var(--active-note-bg);
+  cursor: pointer;
+  bottom: 20px;
+  right: 20px;
+  transition: all 350ms ease-in;
+}
+
+.back-note-list-btn:active {
+  transform: scale(.3);
 }

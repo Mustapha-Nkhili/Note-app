@@ -13,7 +13,6 @@ export default function App() {
   const [noteText, setNoteText] = useState(notes[0].body);
   const [currentNoteId, setCurrentNoteId] = useState(notes[0].id);
   const [noteTitle, setNoteTitle] = useState("");
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     localStorage.setItem("notes", JSON.stringify(notes));
@@ -22,8 +21,8 @@ export default function App() {
   const addNotes = () => {
     let newNote = {
       id: nanoid(),
-      title: noteTitle,
-      body: noteText,
+      title: "",
+      body: "",
     };
     setNotes([...notes, newNote]);
     setCurrentNoteId(newNote.id);
@@ -69,18 +68,6 @@ export default function App() {
       });
     });
   };
-
-  useEffect(() => {
-    const handleScreenResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-    window.addEventListener("resize", handleScreenResize);
-    return () => {
-      window.removeEventListener("resize", handleScreenResize);
-    };
-  }, []);
-
-  console.log(windowWidth)
   return (
     <div className="container">
       <SideBar

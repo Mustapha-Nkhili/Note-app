@@ -19,7 +19,6 @@
 
 .container {
   display: flex;
-  /* overflow: hidden; */
 }
 
 .notes-sideBar {
@@ -27,7 +26,8 @@
   width: 250px;
   background-color: var(--sideBar-note-bg);
 }
-@media screen and (max-width: 600px)  {
+
+@media screen and (max-width: 600px) {
   .notes-sideBar {
     width: 180px;
   }
@@ -70,18 +70,18 @@
 .note {
   padding: 10px;
   height: 60px;
-  /* background-color: var(--active-note-bg); */
+  /* background-color: var(--primary-clr); */
   line-height: 1.4;
-  border-top: 1px solid var(--active-note-bg);
+  border-top: 1px solid var(--primary-clr);
   cursor: pointer;
 }
 
 .note:last-child {
-  border-bottom: 1px solid var(--active-note-bg);
+  border-bottom: 1px solid var(--primary-clr);
 }
 
 .note.active {
-  background-color: var(--active-note-bg);
+  background-color: var(--primary-clr);
 }
 
 .note .note-title {
@@ -135,7 +135,7 @@
 .editor .editor-body {
   display: block;
   position: relative;
-  font-size: 0.9rem;
+  font-size: 1rem;
   padding: 40px 10px 20px 40px;
   border: none;
   outline: none;
@@ -175,7 +175,7 @@
   color: #fff;
   aspect-ratio: 1;
   border-radius: 50%;
-  background-color: var(--active-note-bg);
+  background-color: var(--primary-clr);
   cursor: pointer;
   bottom: 20px;
   right: 20px;
@@ -184,4 +184,30 @@
 
 .back-note-list-btn:active {
   transform: scale(.3);
+}
+
+.edit-note-text {
+  margin-bottom: 10px;
+}
+
+.edit-note-text label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  aspect-ratio: 1;
+  margin-right: 4px;
+  background-color: transparent;
+  border-radius: 3px;
+  color: var(--primary-clr);
+  cursor: pointer;
+transition: all 350ms ease-in-out;
+}
+
+.edit-note-text .text-styles input {
+  display: none;
+}
+
+.edit-note-text .text-styles input:checked+label {
+  background-color: red;
 }

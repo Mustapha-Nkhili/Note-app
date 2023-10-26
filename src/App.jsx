@@ -7,12 +7,34 @@ import "./App.css";
 export default function App() {
   const [notes, setNotes] = useState(
     JSON.parse(localStorage.getItem("notes")) || [
-      { id: nanoid(), title: "", body: "" },
+      {
+        id: nanoid(),
+        title: "",
+        body: "",
+      },
     ]
   );
   const [noteText, setNoteText] = useState(notes[0].body);
   const [currentNoteId, setCurrentNoteId] = useState(notes[0].id);
-  const [noteTitle, setNoteTitle] = useState("");
+  const [noteTitle, setNoteTitle] = useState(notes[0].title);
+  const [formData, setFormData] = useState(
+    JSON.parse(localStorage.getItem(currentNoteId)) || {
+      bold: false,
+      italic: false,
+      underline: false,
+    }
+  );
+
+  const handleNoteTextChanges = (e) => {
+    const { value, name, type, checked } = e.target;
+    const updatedFormData = {
+      ...formData,
+      [name]: type === "checkbox" ? checked : value,
+    };
+    setFormData(updatedFormData);
+    console.log(formData);
+    localStorage.setItem(currentNoteId, JSON.stringify(updatedFormData));
+  };
 
   useEffect(() => {
     localStorage.setItem("notes", JSON.stringify(notes));
@@ -24,6 +46,7 @@ export default function App() {
       title: "",
       body: "",
     };
+    // console.log(newNote.noteStyles);
     setNotes([...notes, newNote]);
     setCurrentNoteId(newNote.id);
     setNoteText("");
@@ -42,6 +65,13 @@ export default function App() {
         setCurrentNoteId(id);
         setNoteText(notes[i].body);
         setNoteTitle(notes[i].title);
+        setFormData(
+          JSON.parse(localStorage.getItem(notes[i].id)) || {
+            bold: false,
+            italic: false,
+            underline: false,
+          }
+        );
       }
     }
 
@@ -58,6 +88,18 @@ export default function App() {
       )
     );
   };
+
+  // const [noteStyles, setNoteStyles] = useState({});
+  // console.log(noteStyles)
+  // useEffect(() => {
+  //   setNoteStyles(() => {
+  //     notes.map((note) => {
+  //       if (note.id === currentNoteId) {
+  //         return note.noteStyles;
+  //       }
+  //     });
+  //   });
+  // }, [notes, currentNoteId]);
 
   const updateNoteTitle = (e) => {
     const { value } = e.target;
@@ -82,6 +124,9 @@ export default function App() {
         handleNoteChanges={updateNote}
         updateNoteTitle={updateNoteTitle}
         noteTitle={noteTitle}
+        handleNoteTextChanges={handleNoteTextChanges}
+        formData={formData}
+        // styles={JSON.parse(localStorage.getItem("notes")) || {}}
       />
     </div>
   );

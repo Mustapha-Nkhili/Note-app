@@ -21,9 +21,11 @@
   display: flex;
 }
 
+/* Start side bar  */
 .notes-sideBar {
   height: 100vh;
   width: 250px;
+  max-width: 250px;
   background-color: var(--sideBar-note-bg);
 }
 
@@ -51,7 +53,7 @@
 .notes-sideBar header button {
   padding: 10px 15px;
   border-radius: 3px;
-  background-color: var(--add-note-btn-bg);
+  background-color: var(--primary-blue-clr);
   cursor: pointer;
   border: none;
   outline: none;
@@ -63,14 +65,13 @@
 }
 
 .notes {
-  height: calc(100% - 89px);
+  height: calc(100% - 113px);
   overflow-y: auto
 }
 
 .note {
   padding: 10px;
   height: 60px;
-  /* background-color: var(--primary-clr); */
   line-height: 1.4;
   border-top: 1px solid var(--primary-clr);
   cursor: pointer;
@@ -104,25 +105,22 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+/* End side bar */
 
+/* Start editor  */
 .editor {
   width: 100%;
 }
-
-.editor .editor-header {
-  padding: 20px;
-}
-
 .editor .note-title {
   font-family: Source Sans Pro, -apple-system, system-ui, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   font-size: 30px;
+  padding: 10px 0 4px 40px;
   font-weight: 600;
   line-height: 40px;
   background-color: transparent;
   color: black;
   outline: none;
   border: none;
-  padding-bottom: 4px;
   width: 100%;
 }
 
@@ -146,9 +144,18 @@
   color: #80838a;
 }
 
+.editor .editor-body::placeholder {
+  font-size: 1rem;
+  color: #80838a;
+  text-decoration: none !important;
+  font-weight: normal !important;
+  font-style: normal !important;
+}
+
 @media screen and (max-width: 480px) {
   .notes-sideBar {
-    flex-basis: 100%;
+    width: 100vw;
+    max-width: 100%;
   }
 
   .notes-sideBar.clicked {
@@ -186,28 +193,84 @@
   transform: scale(.3);
 }
 
+/* Start edit note text */
 .edit-note-text {
-  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+  font-size: 13px;
 }
 
 .edit-note-text label {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
+  width: 24px;
   aspect-ratio: 1;
   margin-right: 4px;
   background-color: transparent;
   border-radius: 3px;
   color: var(--primary-clr);
   cursor: pointer;
-transition: all 350ms ease-in-out;
+  transition: all 350ms ease-in-out;
 }
-
-.edit-note-text .text-styles input {
+.edit-note-text .container label:last-child {
+  margin-right: 0;
+}
+.edit-note-text .container {
+  justify-content: center;
+  border-right: 1px solid var(--primary-clr);
+  padding: 0 4px;
+}
+.edit-note-text .container input {
   display: none;
 }
-
-.edit-note-text .text-styles input:checked+label {
-  background-color: red;
+.edit-note-text .color {
+  align-items: center;
 }
+.edit-note-text .container.color input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: inline-flex;
+  width: 20px;
+  height: 25px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.edit-note-text .color input::-webkit-color-swatch {
+  border-radius: 50%;
+  border: none;
+}
+.edit-note-text .color label {
+  color: black;
+  font-size: 0.7rem;
+}
+.edit-note-text input:checked+label {
+  background-color: var(--primary-blue-clr);
+  color: hsla(0, 0%, 0%, 0.651);
+}
+.edit-note-text select {
+  font-weight: bold;
+  background-color: transparent;
+  color: rgba(0, 0, 0, 0.607);
+  border-radius: 3px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: all 350ms ease-in-out;
+}
+.edit-note-text select:hover {
+  background-color: #a6a6a6;
+}
+.edit-note-text select option {
+  background-color: #fff;
+}
+@media screen and (max-width: 480px) {
+  .edit-note-text #fontFamily {
+    width: 60px;
+  }
+}
+/* End edit note text  */
+/* End editor  */

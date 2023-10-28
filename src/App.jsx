@@ -22,19 +22,12 @@ export default function App() {
       bold: false,
       italic: false,
       underline: false,
+      fontFamily: "serif",
+      align: "",
+      fontSize: "",
+      color: "#80838a",
     }
   );
-
-  const handleNoteTextChanges = (e) => {
-    const { value, name, type, checked } = e.target;
-    const updatedFormData = {
-      ...formData,
-      [name]: type === "checkbox" ? checked : value,
-    };
-    setFormData(updatedFormData);
-    console.log(formData);
-    localStorage.setItem(currentNoteId, JSON.stringify(updatedFormData));
-  };
 
   useEffect(() => {
     localStorage.setItem("notes", JSON.stringify(notes));
@@ -46,7 +39,6 @@ export default function App() {
       title: "",
       body: "",
     };
-    // console.log(newNote.noteStyles);
     setNotes([...notes, newNote]);
     setCurrentNoteId(newNote.id);
     setNoteText("");
@@ -65,18 +57,33 @@ export default function App() {
         setCurrentNoteId(id);
         setNoteText(notes[i].body);
         setNoteTitle(notes[i].title);
-        setFormData(
-          JSON.parse(localStorage.getItem(notes[i].id)) || {
-            bold: false,
-            italic: false,
-            underline: false,
-          }
-        );
+        setFormData(JSON.parse(localStorage.getItem(notes[i].id)) || {});
       }
     }
 
     const sideBarContainer = note.parentElement.parentElement;
     sideBarContainer.classList.add("clicked");
+  };
+
+  const handleNoteTextChanges = (e) => {
+    const { value, name, type, checked } = e.target;
+    const updatedFormData = {
+      ...formData,
+      [name]: type === "checkbox" ? checked : value,
+    };
+    setFormData(updatedFormData);
+    console.log(formData);
+    localStorage.setItem(currentNoteId, JSON.stringify(updatedFormData));
+  };
+
+  const updateNoteTitle = (e) => {
+    const { value } = e.target;
+    setNoteTitle(value);
+    setNotes((notes) => {
+      return notes.map((note) => {
+        return note.id === currentNoteId ? { ...note, title: value } : note;
+      });
+    });
   };
 
   const updateNote = (e) => {
@@ -89,27 +96,6 @@ export default function App() {
     );
   };
 
-  // const [noteStyles, setNoteStyles] = useState({});
-  // console.log(noteStyles)
-  // useEffect(() => {
-  //   setNoteStyles(() => {
-  //     notes.map((note) => {
-  //       if (note.id === currentNoteId) {
-  //         return note.noteStyles;
-  //       }
-  //     });
-  //   });
-  // }, [notes, currentNoteId]);
-
-  const updateNoteTitle = (e) => {
-    const { value } = e.target;
-    setNoteTitle(value);
-    setNotes((notes) => {
-      return notes.map((note) => {
-        return note.id === currentNoteId ? { ...note, title: value } : note;
-      });
-    });
-  };
   return (
     <div className="container">
       <SideBar
@@ -117,7 +103,6 @@ export default function App() {
         notes={notes}
         currentNoteId={currentNoteId}
         findCurrentNoteId={findCurrentNoteId}
-        // noteTitle={noteTitle}
       />
       <Editor
         noteContent={noteText}
@@ -126,7 +111,6 @@ export default function App() {
         noteTitle={noteTitle}
         handleNoteTextChanges={handleNoteTextChanges}
         formData={formData}
-        // styles={JSON.parse(localStorage.getItem("notes")) || {}}
       />
     </div>
   );

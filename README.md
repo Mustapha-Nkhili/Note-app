@@ -2,6 +2,14 @@
 
 A simple and efficient note-taking application built with React.
 
+# Screenshot
+
+![Screenshot of the note app](https://github.com/Mustapha-Nkhili/Note-app/assets/127800851/088766d3-3f86-46a0-973c-002998f375f3)
+
+# Demo 
+
+You can check out a live demo of note app here:   [note taking app](https://notes-act.web.app/)
+
 ## Table of Contents
 
 - [Features](#Features)

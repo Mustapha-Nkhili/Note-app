@@ -30,6 +30,13 @@ export default function App() {
   );
 
   useEffect(() => {
+    const handlePreLoader = () => {
+      document.getElementById("preLoader").style.display = "none"
+    };
+    window.addEventListener("load", handlePreLoader);
+  }, []);
+
+  useEffect(() => {
     localStorage.setItem("notes", JSON.stringify(notes));
   }, [notes]);
 
@@ -97,30 +104,35 @@ export default function App() {
 
   const removeNote = (deletedNote) => {
     if (notes.length > 1) {
-      let noteIndex = notes.findIndex(note => note.id === deletedNote.id)
+      let noteIndex = notes.findIndex((note) => note.id === deletedNote.id);
       const newNotes = notes.filter((note) => note !== deletedNote);
       setNotes(newNotes);
-      document.getElementById(notes[noteIndex - 1].id).click()
+      document.getElementById(notes[noteIndex - 1].id).click();
     }
   };
 
   return (
-    <div className="container">
-      <SideBar
-        addNotes={addNotes}
-        notes={notes}
-        currentNoteId={currentNoteId}
-        findCurrentNoteId={findCurrentNoteId}
-        removeNote={removeNote}
-      />
-      <Editor
-        noteContent={noteText}
-        handleNoteChanges={updateNote}
-        updateNoteTitle={updateNoteTitle}
-        noteTitle={noteTitle}
-        handleNoteTextChanges={handleNoteTextChanges}
-        formData={formData}
-      />
-    </div>
+    <>
+      <div className="pre-loader" id="preLoader">
+        <span className="loader"></span>
+      </div>
+      <div className="container">
+        <SideBar
+          addNotes={addNotes}
+          notes={notes}
+          currentNoteId={currentNoteId}
+          findCurrentNoteId={findCurrentNoteId}
+          removeNote={removeNote}
+        />
+        <Editor
+          noteContent={noteText}
+          handleNoteChanges={updateNote}
+          updateNoteTitle={updateNoteTitle}
+          noteTitle={noteTitle}
+          handleNoteTextChanges={handleNoteTextChanges}
+          formData={formData}
+        />
+      </div>
+    </>
   );
 }

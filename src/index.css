@@ -9,6 +9,10 @@
   --primary-blue-clr: #3F7AFE;
   --note-title-clr: hsl(228, 4%, 20%);
   --note-summary-clr: #4b4c50;
+  --red-clr: #e90707;
+  --black-clr: hsl(0, 0%, 0%);
+  --note-default-clr: #80838a;
+  --white-clr: #fff;
 
   background-color: var(--primary-bg-clr);
 
@@ -18,6 +22,7 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+
 * {
   padding: 0;
   margin: 0;

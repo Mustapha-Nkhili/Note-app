@@ -24,7 +24,7 @@ export default function App() {
       underline: false,
       fontFamily: "serif",
       align: "",
-      fontSize: "",
+      fontSize: "16",
       color: "#80838a",
     }
   );
@@ -72,7 +72,6 @@ export default function App() {
       [name]: type === "checkbox" ? checked : value,
     };
     setFormData(updatedFormData);
-    console.log(formData);
     localStorage.setItem(currentNoteId, JSON.stringify(updatedFormData));
   };
 
@@ -96,6 +95,15 @@ export default function App() {
     );
   };
 
+  const removeNote = (deletedNote) => {
+    if (notes.length > 1) {
+      let noteIndex = notes.findIndex(note => note.id === deletedNote.id)
+      const newNotes = notes.filter((note) => note !== deletedNote);
+      setNotes(newNotes);
+      document.getElementById(notes[noteIndex - 1].id).click()
+    }
+  };
+
   return (
     <div className="container">
       <SideBar
@@ -103,6 +111,7 @@ export default function App() {
         notes={notes}
         currentNoteId={currentNoteId}
         findCurrentNoteId={findCurrentNoteId}
+        removeNote={removeNote}
       />
       <Editor
         noteContent={noteText}

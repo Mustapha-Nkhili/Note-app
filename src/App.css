@@ -4,7 +4,6 @@
 
 ::-webkit-scrollbar-track {
   background: transparent;
-  padding: 2px;
   border-radius: 100px;
 }
 
@@ -46,7 +45,7 @@
 .notes-sideBar header span {
   font-size: 2rem;
   font-weight: 700;
-  color: black;
+  color: var(--black-clr);
   text-transform: capitalize;
 }
 
@@ -65,7 +64,7 @@
 }
 
 .notes {
-  height: calc(100% - 113px);
+  height: calc(100% - 115px);
   overflow-y: auto
 }
 
@@ -75,6 +74,7 @@
   line-height: 1.4;
   border-top: 1px solid var(--primary-clr);
   cursor: pointer;
+  position: relative;
 }
 
 .note:last-child {
@@ -105,6 +105,26 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.note .delete-note-btn {
+  display: none;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  z-index: 20;
+  transform: translateY(-50%);
+  background-color: transparent;
+  color: var(--note-summary-clr);
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.note .delete-note-btn:hover {
+  color: var(--red-clr);
+}
+.note:hover .delete-note-btn {
+  display: block;
+}
+
 /* End side bar */
 
 /* Start editor  */
@@ -118,7 +138,7 @@
   font-weight: 600;
   line-height: 40px;
   background-color: transparent;
-  color: black;
+  color: var(--black-clr);
   outline: none;
   border: none;
   width: 100%;
@@ -141,13 +161,12 @@
   resize: none;
   height: calc(100% - 120px);
   background-color: transparent;
-  color: #80838a;
+  color: var(--note-default-clr);
 }
 
 .editor .editor-body::placeholder {
   font-size: 1rem;
-  color: #80838a;
-  text-decoration: none !important;
+  color: var(--note-default-clr);
   font-weight: normal !important;
   font-style: normal !important;
 }
@@ -179,7 +198,7 @@
   line-height: 45px;
   width: 45px;
   font-size: 19px;
-  color: #fff;
+  color: var(--white-clr);
   aspect-ratio: 1;
   border-radius: 50%;
   background-color: var(--primary-clr);
@@ -244,7 +263,7 @@
   border: none;
 }
 .edit-note-text .color label {
-  color: black;
+  color: var(--black-clr);
   font-size: 0.7rem;
 }
 .edit-note-text input:checked+label {
@@ -265,7 +284,7 @@
   background-color: #a6a6a6;
 }
 .edit-note-text select option {
-  background-color: #fff;
+  background-color: var(--white-clr);
 }
 @media screen and (max-width: 480px) {
   .edit-note-text #fontFamily {

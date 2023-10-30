@@ -1,8 +1,12 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+
 export default function SideBar({
   addNotes,
   notes,
   findCurrentNoteId,
   currentNoteId,
+  removeNote,
 }) {
   return (
     <div className="notes-sideBar">
@@ -19,10 +23,19 @@ export default function SideBar({
               id={note.id}
               onClick={findCurrentNoteId}
             >
-              <span className="note-title">{note.title === "" ? `Note ${index + 1}` : note.title}</span>
+              <span className="note-title">
+                {note.title === "" ? `Note ${index + 1}` : note.title}
+              </span>
               <span className="note-summary-title">
                 {note.body.match(/.+/)}
               </span>
+              <button
+                type="button"
+                onClick={() => removeNote(note)}
+                className="delete-note-btn"
+              >
+                <FontAwesomeIcon icon={faTrash} />
+              </button>
             </div>
           );
         })}

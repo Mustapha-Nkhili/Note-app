@@ -4,7 +4,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 export default function SideBar({
   addNotes,
   notes,
-  findCurrentNoteId,
+  handleNoteClick,
   currentNoteId,
   removeNote,
 }) {
@@ -21,7 +21,7 @@ export default function SideBar({
               className={`note ${currentNoteId === note.id ? "active" : ""}`}
               key={note.id}
               id={note.id}
-              onClick={findCurrentNoteId}
+              onClick={handleNoteClick}
             >
               <span className="note-title">
                 {note.title === "" ? `Note ${index + 1}` : note.title}

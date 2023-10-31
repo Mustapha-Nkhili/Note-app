@@ -31,9 +31,16 @@ export default function App() {
 
   useEffect(() => {
     const handlePreLoader = () => {
-      document.getElementById("preLoader").style.display = "none"
+      const preLoader = document.getElementById("preLoader");
+      if (preLoader) {
+        preLoader.style.display = "none";
+      }
     };
     window.addEventListener("load", handlePreLoader);
+
+    return () => {
+      window.removeEventListener("load", handlePreLoader);
+    };
   }, []);
 
   useEffect(() => {
@@ -52,7 +59,7 @@ export default function App() {
     setNoteTitle("");
   };
 
-  const findCurrentNoteId = (e) => {
+  const handleNoteClick = (e) => {
     const note = e.target.classList.contains("note")
       ? e.target
       : e.target.parentElement;
@@ -72,18 +79,30 @@ export default function App() {
     sideBarContainer.classList.add("clicked");
   };
 
+  const moveEditedNoteToTop = () => {
+    const newNotes = [...notes];
+    let indexOfEditedNote = newNotes.findIndex(
+      (note) => note.id === currentNoteId
+    );
+    newNotes.unshift(newNotes.splice(indexOfEditedNote, 1)[0]);
+    setNotes(newNotes);
+  };
+
   const handleNoteTextChanges = (e) => {
     const { value, name, type, checked } = e.target;
     const updatedFormData = {
       ...formData,
       [name]: type === "checkbox" ? checked : value,
     };
+    moveEditedNoteToTop();
     setFormData(updatedFormData);
     localStorage.setItem(currentNoteId, JSON.stringify(updatedFormData));
   };
 
   const updateNoteTitle = (e) => {
     const { value } = e.target;
+
+    moveEditedNoteToTop();
     setNoteTitle(value);
     setNotes((notes) => {
       return notes.map((note) => {
@@ -92,8 +111,10 @@ export default function App() {
     });
   };
 
-  const updateNote = (e) => {
+  const updateNoteText = (e) => {
     const { value } = e.target;
+
+    moveEditedNoteToTop();
     setNoteText(value);
     setNotes((oldNotes) =>
       oldNotes.map((note) =>
@@ -107,7 +128,10 @@ export default function App() {
       let noteIndex = notes.findIndex((note) => note.id === deletedNote.id);
       const newNotes = notes.filter((note) => note !== deletedNote);
       setNotes(newNotes);
-      document.getElementById(notes[noteIndex - 1].id).click();
+      console.log(noteIndex);
+      document
+        .getElementById(notes[noteIndex === 0 ? 1 : noteIndex - 1].id)
+        .click();
     }
   };
 
@@ -121,12 +145,12 @@ export default function App() {
           addNotes={addNotes}
           notes={notes}
           currentNoteId={currentNoteId}
-          findCurrentNoteId={findCurrentNoteId}
+          handleNoteClick={handleNoteClick}
           removeNote={removeNote}
         />
         <Editor
           noteContent={noteText}
-          handleNoteChanges={updateNote}
+          handleNoteChanges={updateNoteText}
           updateNoteTitle={updateNoteTitle}
           noteTitle={noteTitle}
           handleNoteTextChanges={handleNoteTextChanges}

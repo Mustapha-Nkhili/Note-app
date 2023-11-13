@@ -21,10 +21,11 @@
   background: transparent;
   border-radius: 14px;
 }
+
 .notes::-webkit-scrollbar-thumb {
-  /* border-color: var(--sideBar-note-bg); */
   border: 3px solid var(--sideBar-note-bg);
 }
+
 .container {
   display: flex;
 }
@@ -62,6 +63,7 @@
   padding: 10px 15px;
   border-radius: 3px;
   background-color: var(--primary-blue-clr);
+  color: white;
   cursor: pointer;
   border: none;
   outline: none;
@@ -114,6 +116,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 .note .delete-note-btn {
   display: none;
   position: absolute;
@@ -127,11 +130,21 @@
   outline: none;
   cursor: pointer;
 }
+
 .note .delete-note-btn:hover {
   color: var(--red-clr);
 }
+
 .note:hover .delete-note-btn {
   display: block;
+}
+
+.note .note-date {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  font-size: 0.6rem;
+  font-weight: 600;
 }
 
 /* End side bar */
@@ -140,6 +153,7 @@
 .editor {
   width: 100%;
 }
+
 .editor .note-title {
   font-family: Source Sans Pro, -apple-system, system-ui, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   font-size: 30px;
@@ -151,6 +165,13 @@
   outline: none;
   border: none;
   width: 100%;
+}
+
+.editor .note-date {
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: #00000052;
+  margin-left: 40px;
 }
 
 .editor hr {
@@ -168,7 +189,7 @@
   outline: none;
   width: 100%;
   resize: none;
-  height: calc(100% - 120px);
+  height: calc(100% - 137px);
   background-color: transparent;
   color: var(--note-default-clr);
 }
@@ -242,20 +263,25 @@
   cursor: pointer;
   transition: all 350ms ease-in-out;
 }
+
 .edit-note-text .container label:last-child {
   margin-right: 0;
 }
+
 .edit-note-text .container {
   justify-content: center;
   border-right: 1px solid var(--primary-clr);
   padding: 0 4px;
 }
+
 .edit-note-text .container input {
   display: none;
 }
+
 .edit-note-text .color {
   align-items: center;
 }
+
 .edit-note-text .container.color input {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -267,18 +293,22 @@
   border: none;
   cursor: pointer;
 }
+
 .edit-note-text .color input::-webkit-color-swatch {
   border-radius: 50%;
   border: none;
 }
+
 .edit-note-text .color label {
   color: var(--black-clr);
   font-size: 0.7rem;
 }
+
 .edit-note-text input:checked+label {
   background-color: var(--primary-blue-clr);
   color: hsla(0, 0%, 0%, 0.651);
 }
+
 .edit-note-text select {
   font-weight: bold;
   background-color: transparent;
@@ -289,17 +319,21 @@
   cursor: pointer;
   transition: all 350ms ease-in-out;
 }
+
 .edit-note-text select:hover {
   background-color: #a6a6a6;
 }
+
 .edit-note-text select option {
   background-color: var(--white-clr);
 }
+
 @media screen and (max-width: 480px) {
   .edit-note-text #fontFamily {
     width: 60px;
   }
 }
+
 /* End edit note text  */
 /* End editor  */
 
@@ -313,6 +347,7 @@
   background-color: #263038;
   z-index: 100;
 }
+
 .loader {
   color: #ffffff;
   font-size: 45px;
@@ -329,39 +364,48 @@
 @keyframes mltShdSpin {
   0% {
     box-shadow: 0 -0.83em 0 -0.4em,
-    0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em,
-    0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+      0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em,
+      0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
   }
+
   5%,
   95% {
-    box-shadow: 0 -0.83em 0 -0.4em, 
-    0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 
-    0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    box-shadow: 0 -0.83em 0 -0.4em,
+      0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em,
+      0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
   }
+
   10%,
   59% {
-    box-shadow: 0 -0.83em 0 -0.4em, 
-    -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em, 
-    -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
+    box-shadow: 0 -0.83em 0 -0.4em,
+      -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em,
+      -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
   }
+
   20% {
     box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em,
-     -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em, 
-     -0.749em -0.34em 0 -0.477em;
+      -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em,
+      -0.749em -0.34em 0 -0.477em;
   }
+
   38% {
     box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em,
-     -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em, 
-     -0.82em -0.09em 0 -0.477em;
+      -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em,
+      -0.82em -0.09em 0 -0.477em;
   }
+
   100% {
-    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 
-    0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em,
+      0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
   }
 }
 
 @keyframes round {
-  0% { transform: rotate(0deg) }
-  100% { transform: rotate(360deg) }
+  0% {
+    transform: rotate(0deg)
+  }
+
+  100% {
+    transform: rotate(360deg)
+  }
 }
- 

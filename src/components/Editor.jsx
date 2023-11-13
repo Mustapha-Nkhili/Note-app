@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBold,
@@ -19,11 +19,10 @@ export default function Editor({
   noteTitle,
   handleNoteTextChanges,
   formData,
-  styles,
+  noteDate,
 }) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const fontSizesArray = [8, 9, 12, 14, 16, 18, 20, 24, 30, 36, 48, 64, 72, 96];
-  // const textareaRef = useRef();
 
   useEffect(() => {
     const handleScreenResize = () => {
@@ -34,29 +33,6 @@ export default function Editor({
       window.removeEventListener("resize", handleScreenResize);
     };
   }, []);
-
-  // useEffect(() => {
-  //   const textarea = textareaRef.current;
-
-  //   const handleSelection = () => {
-  //     const selectedText = textarea.value.slice(
-  //       textarea.selectionStart,
-  //       textarea.selectionEnd
-  //     );
-      
-  //     console.log("selctedText: " + selectedText);
-  //   };
-
-  //   if (textarea) {
-  //     textarea.addEventListener("mouseup", handleSelection);
-  //   }
-
-  //   return () => {
-  //     if (textarea) {
-  //       textarea.removeEventListener("mouseup", handleSelection);
-  //     }
-  //   };
-  // }, []);
 
   const backToNoteList = () => {
     const sideBar = document.querySelector(".notes-sideBar");
@@ -72,6 +48,28 @@ export default function Editor({
     fontSize: `${formData.fontSize}px`,
     color: formData.color,
   };
+
+  const date = new Date(noteDate);
+  const month = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
+  const hour = date.getHours() < 10 ? `0${date.getHours()}` : date.getHours();
+  const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+  const noteMonth = date.getMonth();
+  const year = date.getFullYear();
 
   return (
     <div className="editor">
@@ -225,13 +223,13 @@ export default function Editor({
           onChange={updateNoteTitle}
           value={noteTitle}
         />
+        <span className="note-date">{`${month[noteMonth]} ${day}, ${year} ${hour}:${minutes}`}</span>
       </header>
       <hr />
       <textarea
         className="editor-body"
         placeholder="Enter your notes here"
         name="textContent"
-        // ref={textareaRef}
         style={noteStyles}
         onChange={handleNoteChanges}
         value={noteContent}

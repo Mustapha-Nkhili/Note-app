@@ -16,6 +16,51 @@ export default function SideBar({
       </header>
       <div className="notes">
         {notes.map((note, index) => {
+          const currentDate = new Date();
+          const noteDate = new Date(note.updateAt);
+          const month = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+          ];
+
+          const noteYear =
+            noteDate.getFullYear() === currentDate.getFullYear()
+              ? ""
+              : noteDate.getFullYear();
+
+          const noteMonth =
+            noteDate.getMonth() === currentDate.getMonth()
+              ? ""
+              : month[noteDate.getMonth()];
+
+          const noteDay =
+            noteDate.getDate() === currentDate.getDate()
+              ? ""
+              : `${noteDate.getDate()}, `;
+
+          const hour =
+            noteYear === "" && noteMonth === "" && noteDay === ""
+              ? `Today, ${
+                  noteDate.getHours() < 10
+                    ? `0${noteDate.getHours()}`
+                    : noteDate.getHours()
+                }:${
+                  noteDate.getMinutes() < 10
+                    ? `0${noteDate.getMinutes()}`
+                    : noteDate.getMinutes()
+                }`
+              : "";
+
           return (
             <div
               className={`note ${currentNoteId === note.id ? "active" : ""}`}
@@ -36,6 +81,7 @@ export default function SideBar({
               >
                 <FontAwesomeIcon icon={faTrash} />
               </button>
+              <span className="note-date">{`${noteMonth} ${noteDay}${noteYear} ${hour}`}</span>
             </div>
           );
         })}

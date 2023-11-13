@@ -11,6 +11,8 @@ export default function App() {
         id: nanoid(),
         title: "",
         body: "",
+        createdAt: Date.now(),
+        updateAt: Date.now(),
       },
     ]
   );
@@ -30,20 +32,6 @@ export default function App() {
   );
 
   useEffect(() => {
-    const handlePreLoader = () => {
-      const preLoader = document.getElementById("preLoader");
-      if (preLoader) {
-        preLoader.style.display = "none";
-      }
-    };
-    window.addEventListener("load", handlePreLoader);
-
-    return () => {
-      window.removeEventListener("load", handlePreLoader);
-    };
-  }, []);
-
-  useEffect(() => {
     localStorage.setItem("notes", JSON.stringify(notes));
   }, [notes]);
 
@@ -52,6 +40,8 @@ export default function App() {
       id: nanoid(),
       title: "",
       body: "",
+      createdAt: Date.now(),
+      updateAt: Date.now(),
     };
     setNotes([...notes, newNote]);
     setCurrentNoteId(newNote.id);
@@ -106,7 +96,9 @@ export default function App() {
     setNoteTitle(value);
     setNotes((notes) => {
       return notes.map((note) => {
-        return note.id === currentNoteId ? { ...note, title: value } : note;
+        return note.id === currentNoteId
+          ? { ...note, title: value, updateAt: Date.now() }
+          : note;
       });
     });
   };
@@ -118,7 +110,9 @@ export default function App() {
     setNoteText(value);
     setNotes((oldNotes) =>
       oldNotes.map((note) =>
-        note.id === currentNoteId ? { ...note, body: value } : note
+        note.id === currentNoteId
+          ? { ...note, body: value, updateAt: Date.now() }
+          : note
       )
     );
   };
@@ -137,9 +131,6 @@ export default function App() {
 
   return (
     <>
-      <div className="pre-loader" id="preLoader">
-        <span className="loader"></span>
-      </div>
       <div className="container">
         <SideBar
           addNotes={addNotes}
@@ -155,6 +146,7 @@ export default function App() {
           noteTitle={noteTitle}
           handleNoteTextChanges={handleNoteTextChanges}
           formData={formData}
+          noteDate={notes.filter((note) => note.id === currentNoteId)[0].updateAt}
         />
       </div>
     </>

@@ -33,33 +33,57 @@ export default function SideBar({
             "December",
           ];
 
-          const noteYear =
-            noteDate.getFullYear() === currentDate.getFullYear()
-              ? ""
-              : noteDate.getFullYear();
+          function getNoteYear() {
+            let noteYear;
+            if (noteDate.getFullYear() === currentDate.getFullYear()) {
+              noteYear = "";
+            } else {
+              noteYear = `, ${noteDate.getFullYear()}`;
+            }
 
-          const noteMonth =
-            noteDate.getMonth() === currentDate.getMonth()
-              ? ""
-              : month[noteDate.getMonth()];
+            return noteYear;
+          }
 
-          const noteDay =
-            noteDate.getDate() === currentDate.getDate()
-              ? ""
-              : `${noteDate.getDate()}, `;
+          function getNoteMonth() {
+            let noteMonth;
+            if (
+              noteDate.getMonth() === currentDate.getMonth() &&
+              noteDate.getDate() === currentDate.getDate()
+            ) {
+              noteMonth = "";
+            } else {
+              noteMonth = month[noteDate.getMonth()];
+            }
+            return noteMonth;
+          }
 
-          const hour =
-            noteYear === "" && noteMonth === "" && noteDay === ""
-              ? `Today, ${
-                  noteDate.getHours() < 10
-                    ? `0${noteDate.getHours()}`
-                    : noteDate.getHours()
-                }:${
-                  noteDate.getMinutes() < 10
-                    ? `0${noteDate.getMinutes()}`
-                    : noteDate.getMinutes()
-                }`
-              : "";
+          function getNoteDay() {
+            let noteDay;
+            if (noteDate.getDate() === currentDate.getDate()) {
+              noteDay = "";
+            } else {
+              noteDay = noteDate.getDate();
+            }
+            return noteDay;
+          }
+
+          function getNoteHour() {
+            let noteHour;
+            if (getNoteYear() === "" && getNoteMonth() === "" && getNoteDay() === "") {
+              noteHour = `Today, ${
+                noteDate.getHours() < 10
+                  ? `0${noteDate.getHours()}`
+                  : noteDate.getHours()
+              }:${
+                noteDate.getMinutes() < 10
+                  ? `0${noteDate.getMinutes()}`
+                  : noteDate.getMinutes()
+              }`
+            } else {
+              noteHour = "";
+            }
+            return noteHour;
+          }
 
           return (
             <div
@@ -81,7 +105,7 @@ export default function SideBar({
               >
                 <FontAwesomeIcon icon={faTrash} />
               </button>
-              <span className="note-date">{`${noteMonth} ${noteDay}${noteYear} ${hour}`}</span>
+              <span className="note-date">{`${getNoteMonth()} ${getNoteDay()}${getNoteYear()} ${getNoteHour()}`}</span>
             </div>
           );
         })}

@@ -122,7 +122,6 @@ export default function App() {
       let noteIndex = notes.findIndex((note) => note.id === deletedNote.id);
       const newNotes = notes.filter((note) => note !== deletedNote);
       setNotes(newNotes);
-      console.log(noteIndex);
       document
         .getElementById(notes[noteIndex === 0 ? 1 : noteIndex - 1].id)
         .click();
@@ -131,7 +130,7 @@ export default function App() {
 
   return (
     <>
-      <div className="container">
+      <main className="container">
         <SideBar
           addNotes={addNotes}
           notes={notes}
@@ -148,7 +147,7 @@ export default function App() {
           formData={formData}
           noteDate={notes.filter((note) => note.id === currentNoteId)[0].updateAt}
         />
-      </div>
+      </main>
     </>
   );
 }
